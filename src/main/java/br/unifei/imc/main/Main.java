@@ -1,15 +1,25 @@
 package br.unifei.imc.main;
 
+import br.unifei.imc.gerador.GeradorArquivo;
+import br.unifei.imc.gerador.GeradorLogin;
+import br.unifei.imc.model.Login;
 import br.unifei.imc.senha.Senha;
 import br.unifei.imc.gerar_senha.NumerosLetrasSimbolos;
 import br.unifei.imc.gerar_senha.NumerosLetras;
 import br.unifei.imc.gerar_senha.ApenasNumeros;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
+
+    private static GeradorArquivo gerador;
+    private static List<Login> pessoa;
     public static void main(String[] args) throws IOException {
+
         String[] test = new String[100];
         int run = 1;
 //        /*-------------------------------------------------------------------------------------*/
@@ -21,19 +31,27 @@ public class Main {
             Scanner entrada = new Scanner(System.in);
             System.out.println("\nO que deseja fazer?\n\n1-Cadastro\n2-Login\n3-Sair");
             int opc = entrada.nextInt();
+
+            /*Cadastro de Usuario*/
             if (opc == 1) {
                 Scanner in = new Scanner(System.in);
                 // 1) Informe o seu login
                 System.out.println("Login:");
                 String login = in.nextLine();
                 // 2) Informe a sua senha
-                System.out.println("Senha: ");
-                String pass = in.nextLine();
+                System.out.println("Password: ");
+                String password = in.nextLine();
+
+                pessoa = new ArrayList<>();
+                pessoa.add(new Login(login,password));
+
+                gerador = new GeradorLogin();
+                gerador.gerarArquivo(pessoa);
 
                 System.out.printf("Usuário cadastrado com sucesso.");
                 System.out.printf("\n");
                 System.out.printf("-----------------------------------------------------------");
-
+              /*Login */
             } else if (opc == 2) {
                 Scanner in = new Scanner(System.in);
                 // 1) Informe o seu login
