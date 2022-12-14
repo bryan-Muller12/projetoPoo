@@ -2,13 +2,19 @@ package br.unifei.imc.main;
 
 import br.unifei.imc.gerador.GeradorArquivo;
 import br.unifei.imc.gerador.GeradorLogin;
+import br.unifei.imc.model.CsvLogin;
 import br.unifei.imc.model.Login;
 import br.unifei.imc.senha.Senha;
 import br.unifei.imc.gerar_senha.NumerosLetrasSimbolos;
 import br.unifei.imc.gerar_senha.NumerosLetras;
 import br.unifei.imc.gerar_senha.ApenasNumeros;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -53,6 +59,21 @@ public class Main {
                 System.out.printf("-----------------------------------------------------------");
               /*Login */
             } else if (opc == 2) {
+
+                Reader reader = Files.newBufferedReader(Paths.get("pessoas.csv"));
+
+                CsvToBean<CsvLogin> csvToBean = new CsvToBeanBuilder(reader)
+                        .withType(CsvLogin.class)
+                        .build();
+
+                List<CsvLogin> pessoas = csvToBean.parse();
+                ArrayList<Object> listaPessoa = new ArrayList<>();
+
+
+                for (CsvLogin pessoa : pessoas)
+                    listaPessoa.add(pessoa);
+
+
                 Scanner in = new Scanner(System.in);
                 // 1) Informe o seu login
                 System.out.println("Login: ");
@@ -60,7 +81,21 @@ public class Main {
                 // 2) Informe a sua senha
                 System.out.println("Senha:");
                 String pass = in.nextLine();
-                if (login.equals("pou") && pass.equals("123")) {
+
+                String juncao = login + ";" + pass;
+
+                boolean verificacao = false;
+
+                int n = listaPessoa.size();
+
+                for(int i =0; i< n; i++ ) {
+                 String  auxiliar = listaPessoa.get(i).toString();
+                 verificacao = auxiliar.equals(juncao);
+                 if (verificacao == true){
+                     i = n+1;
+                 }
+                }
+                if (verificacao == true) {
                     System.out.printf("Usuário %s logado com sucesso.", login);
                     /* --------------------------------------------------------------------- */
                     /*Tela Usuario*/
