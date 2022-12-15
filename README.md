@@ -28,7 +28,7 @@ O tema escolhido foi um software para o gerenciamento de senhas, que é capaz de
 ## Framework
 - Maven
 
-##Ferramenta IDE
+## Ferramenta IDE
 - InteliJ
 ## Lingaugem Utilizada
 ![Logo](https://1000logos.net/wp-content/uploads/2020/09/Java-Logo-500x313.png)
