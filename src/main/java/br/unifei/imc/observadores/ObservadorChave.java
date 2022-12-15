@@ -5,4 +5,5 @@ public interface ObservadorChave {
     int getNumCaracter();
 
     void atualiza(String palavra);
+
 }
