@@ -8,6 +8,8 @@ import lombok.Setter;
 
 @Getter
 public class Senha {
+
+
     @Setter
     private GeradorSenha tipoSenha;
 
